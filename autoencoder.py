@@ -131,14 +131,14 @@ class Autoencoder:
     ###################################################
     # Initialise les fonctions de coûts :             #
     #   - reconstruction                              #
-    #   - sparse penalties*                           #
+    #   - sparse penalties                            #
     ###################################################
     def init_losses(self):
         self.losses = {
-            'rec': tf.reduce_sum(tf.pow(self.X - self.decode_layer, 2)),
-            'lex': tf.reduce_sum(tf.pow(self.encode_layer_KW1 - self.encode_layer_KW2, 2)),
-            'ML' : tf.reduce_sum(tf.pow(self.encode_layer_ML1 - self.encode_layer_ML2, 2)),
-            'CL' : tf.maximum(0., MARGIN - tf.reduce_sum(tf.pow(self.encode_layer_CL1 - self.encode_layer_CL2, 2)))
+            'rec': tf.reduce_sum(tf.norm(self.X - self.decode_layer)),
+            'lex': tf.reduce_sum(tf.norm(self.encode_layer_KW1 - self.encode_layer_KW2)),
+            'ML' : tf.reduce_sum(tf.norm(self.encode_layer_ML1 - self.encode_layer_ML2)),
+            'CL' : tf.reduce_sum(tf.maximum(0., MARGIN - tf.norm(self.encode_layer_CL1 - self.encode_layer_CL2)))
         }
 
     ###################################################
@@ -147,17 +147,17 @@ class Autoencoder:
     # epoches      Nombre d'epoches                   #
     # rate         Pas d'apprentissage                #
     ###################################################
-    def train(self, epoches, rate, hyperparam):
+    def train(self, epoches, rate, alpha):
         self.loss_rec = []
         self.loss_lex = []
         self.loss_ml = []
         self.loss_cl = []
         self.ep = []
         train_step = tf.train.GradientDescentOptimizer(rate).\
-                     minimize(hyperparam[0]*self.losses['rec']+
-                              hyperparam[1]*self.losses['lex']+
-                              hyperparam[2]*self.losses['ML']+
-                              hyperparam[3]*self.losses['CL'])
+                     minimize(alpha[0]*self.losses['rec']+
+                              alpha[1]*self.losses['lex']+
+                              alpha[2]*self.losses['ML']+
+                              alpha[3]*self.losses['CL'])
         init = tf.global_variables_initializer()
         with tf.Session() as sess:
             sess.run(init)
@@ -205,8 +205,8 @@ class Autoencoder:
                     self.loss_ml.append(l3)
                     self.loss_cl.append(l4)
                     self.ep.append(e)
-    def plot_loss(self):
-        plt.title('Variation des loss')
+    def plot_loss(self, filename, title):
+        plt.title(title)
         plt.ylabel('loss')
         plt.xlabel('epochs')
         plt.plot(self.ep, self.loss_cl, label = 'cl')
@@ -214,4 +214,4 @@ class Autoencoder:
         plt.plot(self.ep, self.loss_rec, label = 'rec')
         plt.plot(self.ep, self.loss_lex, label = 'lex')
         plt.legend()
-        plt.savefig('rec.png', bbox_inches='tight')
+        plt.savefig(filename, bbox_inches='tight')
