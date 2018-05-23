@@ -41,5 +41,4 @@ def extract_keywords_from_corpus(corpus, labels, label, nb_kw):
             k+=1
             doc += corpus[i]
     doc /= k
-    return extract_keywords_from_vector(doc, nb_kw)        
-    
+    return extract_keywords_from_vector(doc, nb_kw)    
