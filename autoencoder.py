@@ -176,10 +176,10 @@ class Autoencoder:
         self.loss_cl = []
         self.ep = []
         train_step = tf.train.GradientDescentOptimizer(rate).\
-                     minimize(alpha[0]*self.losses['rec']+
-                              alpha[1]*self.losses['lex']+
-                              alpha[2]*self.losses['ML']+
-                              alpha[3]*self.losses['CL'])
+                     minimize(self.losses['rec']+
+                              alpha[0]*self.losses['lex']+
+                              alpha[1]*self.losses['ML']+
+                              alpha[2]*self.losses['CL'])
         init = tf.global_variables_initializer()
         with tf.Session() as sess:
             sess.run(init)

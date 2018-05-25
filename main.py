@@ -34,7 +34,7 @@ def load_data():
 if __name__ == "__main__":
     corpus, label = load_data()
     pml, pcl = utils.extract_pair(label, int(sys.argv[1]))
-    autoencoder = au.Autoencoder(corpus[0].shape[0], 12, 10, corpus, \
+    autoencoder = au.Autoencoder(corpus[0].shape[0], 200, 200, corpus, \
                                  np.array([1]), pml, pcl)
     autoencoder.init_placeholder()
     autoencoder.init_weights()
@@ -42,7 +42,7 @@ if __name__ == "__main__":
     autoencoder.init_layers()
     autoencoder.init_losses()
     autoencoder.train(1500, 0.01, [float(sys.argv[2]), float(sys.argv[3]), \
-                                   float(sys.argv[4]), float(sys.argv[5])])
-    autoencoder.plot_loss(sys.argv[6], \
-                          "Variation des losses : a0= %s a1= %s a2= %s a3= %s "\
-                          % (sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5]))
+                                   float(sys.argv[4])])
+    autoencoder.plot_loss(sys.argv[5], \
+                          "Variation des losses : a0= %s a1= %s a2= %s "\
+                          % (sys.argv[2],sys.argv[3],sys.argv[4]))
