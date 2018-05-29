@@ -19,25 +19,30 @@ def euclidian_dist(x1, x2):
 
 def argmin(X, R):
     i_min = 0
-    for i in range(R.shape[0]):
+    for i in range(len(R)):
         if(euclidian_dist(X,R[i])<=euclidian_dist(X,R[i_min])):
             i_min = i
     return i_min
 
-def sort_clust(C, R):
-    pass
+def sort_clust(X, R):
+    prio = pq.PriorityQueueMax()
+    for i in range(len(R)):
+        prio.push(i, euclidian_dist(X, R[i]))
+    return prio
             
 def kmeans(C, K, e):
     S = np.zeros((C.shape[0], K))
     assign = np.zeros(C.shape[0])
-    R = init_centroids(C, K, len(R))
+    R = init_centroids(C, K, len(C))
     b = True
+    t=0
     while(b):
+        t+=1
         assign2 = np.copy(assign)
         S = np.zeros((C.shape[0], K))
         for i in range(0, C.shape[0]):
             assign[i] = argmin(C[i], R)
-            S[i][assign[i]] = 1
+            S[i][int(assign[i])] = 1
         
         for k in range(0, K):
             n1=0        
@@ -46,17 +51,19 @@ def kmeans(C, K, e):
             n2=np.zeros(C[0].shape[0])
             for i in range(0, C.shape[0]):        
                 n2+=C[i]*S[i][k]
-        b = e < (lin.norm(assign, assign2))
-    return S
+        b = e < (lin.norm(assign-assign2))
+    print t
+    return assign
 
 def violate_const(X, k, S, CL, ML):
-    for i in range(0, ML.shape[0]):
+    for i in range(0, len(ML)):
         if ML[i][0] == X:
             if(S[ML[i][1]][k] == 0):
                 return True
         if ML[i][1] == X:
             if(S[ML[i][0]][k] == 0):
                 return True
+    for i in range(0, len(CL)):
         if CL[i][0] == X:
             if(S[CL[i][1]][k] == 1):
                 return True
@@ -68,7 +75,7 @@ def violate_const(X, k, S, CL, ML):
 def COPKmeans(C, K, e, CL, ML):
     S = np.zeros((C.shape[0], K))
     assign = np.zeros(C.shape[0])
-    R = init_centroids(C, K, len(R))
+    R = init_centroids(C, K, len(C))
     b = True
     while(b):
         assign2 = np.copy(assign)
@@ -79,8 +86,8 @@ def COPKmeans(C, K, e, CL, ML):
             while(b1):
                 k = prio.pop()
                 assign[i] = k
-                b1 = violate_const(C[i], k, S, CL, ML)
-            S[i][assign[i]] = 1
+                b1 = violate_const(i, k, S, CL, ML)
+            S[i][int(assign[i])] = 1
         for k in range(0, K):
             n1=0        
             for i in range(0, C.shape[0]):        
@@ -88,5 +95,5 @@ def COPKmeans(C, K, e, CL, ML):
             n2=np.zeros(C[0].shape[0])
             for i in range(0, C.shape[0]):        
                 n2+=C[i]*S[i][k]
-        b = e < (lin.norm(assign, assign2))
-    return S
+        b = e < (lin.norm(assign-assign2))
+    return assign

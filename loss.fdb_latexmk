@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1527164422 "loss.tex" "loss.pdf" "loss" 1527164424
+["pdflatex"] 1527587453 "loss.tex" "loss.pdf" "loss" 1527587455
   "/etc/texmf/web2c/texmf.cnf" 1523954696 1101 af7716885e081ab43982cab7b4672c1a ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1272929888 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmmi12.tfm" 1136768653 1524 4414a8315f39513458b80dfc63bff03a ""
@@ -51,18 +51,11 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1503343927 31343 93828589fb0cea665e553ee5a17ad2d4 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1523955163 1863403 f3ff9a4253bcb5fb9a9baaf0c572cb01 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1523955185 3854188 db4bb1c0e480de6e23bfc80be3098225 ""
-  "img/loss/test1.png" 1527163036 26961 eca6c1a99823f59e77eea07eddb0ca30 ""
-  "img/loss/test10.png" 1527164419 37477 dd50ff680fd118edd61cf518813d34a0 ""
-  "img/loss/test2.png" 1527163190 31642 e59eb508a06276ae1cf34e55b2de26b3 ""
-  "img/loss/test3.png" 1527163340 31868 e303af83e876b3b4857a4ac2a3f21782 ""
-  "img/loss/test4.png" 1527163483 31536 85f49c2ae9babbcb1dfaaf81f9f703fa ""
-  "img/loss/test5.png" 1527163624 36020 d935f25fc42a1be5968f2968a6fff78f ""
-  "img/loss/test6.png" 1527163788 34776 9a4d0d6d47959035bc56b28f3cb68a6a ""
-  "img/loss/test7.png" 1527163934 32101 6ccefeb4ac83aacfa4d7697c2043d4df ""
-  "img/loss/test8.png" 1527164080 31104 2d96108018b25fce23b8baab764001ec ""
-  "img/loss/test9.png" 1527164268 33857 5aacc039fd3c7d94bf98c3d4bf473e85 ""
-  "loss.aux" 1527164424 999 ec52621e8bbe5675aa226d4ad749c50d ""
-  "loss.tex" 1527076946 1370 bf9650c68d51eb7f4ca3c7798ccc765f ""
+  "img/loss/test1.png" 1527587255 34553 9b220c3b1f4f5a3f4549a0e3cf332cac ""
+  "img/loss/test2.png" 1527587353 35861 08046adccd53450eb97277f6d284cd91 ""
+  "img/loss/test3.png" 1527587453 35748 efcec91f5eddda35d03e0e781e501cca ""
+  "loss.aux" 1527587455 415 f3829e14a47af89fc35054bf7b4c956b ""
+  "loss.tex" 1527540174 570 f409a02a533b6adf77028e855c55e970 ""
   (generated)
   "loss.pdf"
   "loss.aux"

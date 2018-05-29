@@ -13,7 +13,6 @@ from sklearn.datasets import fetch_20newsgroups
 from sklearn.feature_extraction.text import TfidfVectorizer
 from nltk.corpus import PlaintextCorpusReader
 
-
 ###################################################
 # Load data for clustering                        #
 ###################################################
@@ -27,19 +26,25 @@ def load_data():
         brut_data.append(wordlists.words(filename))
         label[i] = random.randint(0,1)#### !!!!!!!!!!
         i+=1
-    corpus = utils.TFIDFvectorize(utils.word_to_index(brut_data))
+        corpus = utils.TFIDFvectorize(utils.word_to_index(brut_data))
     return corpus, label    
 
 #Main
 if __name__ == "__main__":
     corpus, label = load_data()
-    pml, pcl = utils.extract_pair(label, int(sys.argv[1]))
-    autoencoder = au.Autoencoder(corpus[0].shape[0], 200, 200, corpus, \
-                                 np.array([1]), pml, pcl)
+    n = corpus.shape[1]
+    batch_size = corpus.shape[0]
+    kw = utils.extract_keywords(corpus,label,2)
+    print kw
+    idx, corpus = utils.next_batch(batch_size, corpus, np.array([1]))
+    pml, pcl = utils.extract_pair(label, 50, idx)
+    autoencoder = au.Autoencoder(n, batch_size, 200, 300, corpus, \
+                                 kw, pml, pcl)
     autoencoder.init_placeholder()
     autoencoder.init_weights()
     autoencoder.init_biases()
     autoencoder.init_layers()
+    autoencoder.init_mask()
     autoencoder.init_losses()
     autoencoder.train(1500, 0.01, [float(sys.argv[2]), float(sys.argv[3]), \
                                    float(sys.argv[4])])
